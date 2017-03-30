@@ -5,6 +5,8 @@ using UnityStandardAssets.ImageEffects;
 
 public class PlayerController : MonoBehaviour {
 
+    public GameObject bulletFab;
+
     private float movementScalar = 0.1f;
 
     private Vector3 baseScale = new Vector3(0.2f, 0.2f, 0.2f);
@@ -21,6 +23,35 @@ public class PlayerController : MonoBehaviour {
         }
     }*/
 
+    public void Shoot(float x, float y)
+    {
+        Rotate(x, y);
+
+        GameObject newBullet = Instantiate(bulletFab);
+        newBullet.transform.position = transform.position;
+        newBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(x, y);
+    }
+
+    public void Rotate(float x, float y)
+    {
+        if(x < 0)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 90);
+        }
+        if (x > 0)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, -90);
+        }
+        if (y < 0)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 180);
+        }
+        if (y > 0)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
     private void ResizePlayer()
     {
         transform.localScale = baseScale;
@@ -31,7 +62,7 @@ public class PlayerController : MonoBehaviour {
         bool resetX = false;
         bool resetY = false;
         Vector3 origPos = transform.position;
-        transform.Translate(new Vector2(x*movementScalar, y*movementScalar));
+        transform.position += new Vector3(x*movementScalar, y*movementScalar, 0);
         Vector3 newPos = transform.position;
         Vector3 cameraPos = Camera.main.WorldToViewportPoint(transform.position);
         if (cameraPos.x < 0.0f || cameraPos.x > 1.0f)
