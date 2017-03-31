@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 
         GameObject newBullet = Instantiate(bulletFab);
         newBullet.transform.position = transform.position;
-        newBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(x, y);
+        newBullet.GetComponent<Bullet>().Shoot(x, y);
     }
 
     public void Rotate(float x, float y)
