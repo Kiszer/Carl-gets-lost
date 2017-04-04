@@ -6,10 +6,31 @@ using UnityStandardAssets.ImageEffects;
 public class PlayerController : MonoBehaviour {
 
     public GameObject bulletFab;
+    public Transform bulletSpawnPnt;
+
+    public float shootLatency;
+    private bool shooting = true;
+
+    private float rotationX = 0;
+    private float rotationY = 1;
 
     private float movementScalar = 0.1f;
 
     private Vector3 baseScale = new Vector3(0.2f, 0.2f, 0.2f);
+
+    void Start()
+    {
+        StartCoroutine(ConstantShoot());
+    }
+
+    private IEnumerator ConstantShoot()
+    {
+        while(shooting)
+        {
+            Shoot(rotationX, rotationY);
+            yield return new WaitForSeconds(shootLatency);
+        }
+    }
 
     /* Is called when something touches the player */
     /*public void OnCollisionEnter2D(Collision2D col)
@@ -25,15 +46,17 @@ public class PlayerController : MonoBehaviour {
 
     public void Shoot(float x, float y)
     {
-        Rotate(x, y);
+        //Rotate(x, y);
 
         GameObject newBullet = Instantiate(bulletFab);
-        newBullet.transform.position = transform.position;
+        newBullet.transform.position = bulletSpawnPnt.position;
         newBullet.GetComponent<Bullet>().Shoot(x, y);
     }
 
     public void Rotate(float x, float y)
     {
+        rotationX = x;
+        rotationY = y;
         if(x < 0)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 90);

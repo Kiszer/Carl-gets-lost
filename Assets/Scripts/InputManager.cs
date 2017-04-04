@@ -31,19 +31,19 @@ public class InputManager : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            playerController.Shoot(0, 1);
+            playerController.Rotate(0, 1);
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
-            playerController.Shoot(-1, 0);
+            playerController.Rotate(-1, 0);
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            playerController.Shoot(0, -1);
+            playerController.Rotate(0, -1);
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            playerController.Shoot(1, 0);
+            playerController.Rotate(1, 0);
         }
     }
 }

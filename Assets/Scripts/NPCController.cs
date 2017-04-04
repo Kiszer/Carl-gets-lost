@@ -41,13 +41,13 @@ public class NPCController : MonoBehaviour {
         moveSpeed += .001f;
     }
 
-    void Death()
+    public void Death()
     {
-        Destroy(gameObject);
         if(Random.Range(0f,1f) < powerUpDropChance)
         {
             int chosenPowerup = Random.Range(0, powerUpArr.Length);
             //TODO: spawn powerup
         }
+        Destroy(gameObject);
     }
 }

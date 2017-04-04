@@ -6,6 +6,19 @@ public class Bullet : MonoBehaviour {
 
     protected float flightSpeed = 5;
 
+	protected void Update()
+	{
+		Vector3 cameraPos = Camera.main.WorldToViewportPoint(transform.position);
+        if (cameraPos.x < 0.0f || cameraPos.x > 1.0f)
+        {
+            Destroy(gameObject);
+        }
+        if (cameraPos.y < 0.0f || cameraPos.y > 1.0f)
+        {
+            Destroy(gameObject);
+        }
+	}
+	
     //Bullet Speed
     public void Shoot(float x, float y)
     {
@@ -13,12 +26,12 @@ public class Bullet : MonoBehaviour {
     }
 
     //Standard Bullet
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<NPCController>())
         {
-            //call function from NPC
+            collision.gameObject.GetComponent<NPCController>().Death();
+            Destroy(gameObject);
         }
     }
-
 }
