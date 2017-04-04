@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour {
 	}
 	
     //Bullet Speed
-    public void Shoot(float x, float y)
+    virtual public void Shoot(float x, float y)
     {
         GetComponent<Rigidbody2D>().velocity = new Vector2(x * flightSpeed, y * flightSpeed);
     }

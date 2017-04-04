@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject bulletFab;
     public Transform bulletSpawnPnt;
 
+    public float shootSpread;
     public float shootLatency;
     private bool shooting = true;
 
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 
         GameObject newBullet = Instantiate(bulletFab);
         newBullet.transform.position = bulletSpawnPnt.position;
-        newBullet.GetComponent<Bullet>().Shoot(x, y);
+        newBullet.GetComponent<Bullet>().Shoot(x + Random.Range(-1,1)*shootSpread, y + Random.Range(-1, 1) * shootSpread);
     }
 
     public void Rotate(float x, float y)
