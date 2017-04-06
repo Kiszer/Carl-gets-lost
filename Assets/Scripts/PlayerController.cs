@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.ImageEffects;
 
 public class PlayerController : MonoBehaviour {
@@ -11,6 +12,9 @@ public class PlayerController : MonoBehaviour {
     public float shootSpread;
     public float shootLatency;
     private bool shooting = true;
+
+    private int maxHealth = 5;
+    private int curHealth = 5;
 
     private float rotationX = 0;
     private float rotationY = 1;
@@ -34,16 +38,27 @@ public class PlayerController : MonoBehaviour {
     }
 
     /* Is called when something touches the player */
-    /*public void OnCollisionEnter2D(Collision2D col)
+    public void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.tag == "NPC")
         {
-            Color npcColor = col.gameObject.GetComponent<ParticleSystem>().main.startColor.color;
-            Destroy(col.gameObject);
-            successLevel += colorSimilarity(curColor, npcColor) - 0.5f;
-            ResizePlayer();
+            TakeDamage(1);
         }
-    }*/
+    }
+
+    public void TakeDamage(int damage)
+    {
+        curHealth -= damage;
+        if(curHealth <= 0)
+        {
+            Die();
+        }  
+    }
+
+    public void Die()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     public void Shoot(float x, float y)
     {
