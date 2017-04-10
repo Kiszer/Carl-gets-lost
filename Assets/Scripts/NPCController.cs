@@ -28,7 +28,6 @@ public class NPCController : MonoBehaviour {
         {
             Death();
         }
-
     }
 
     void GetHit(int damage)
@@ -46,7 +45,8 @@ public class NPCController : MonoBehaviour {
         if(Random.Range(0f,1f) < powerUpDropChance)
         {
             int chosenPowerup = Random.Range(0, powerUpArr.Length);
-            //TODO: spawn powerup
+            GameObject newPowerUp = Instantiate(powerUpArr[chosenPowerup]);
+            newPowerUp.transform.position = transform.position;
         }
         Destroy(gameObject);
     }

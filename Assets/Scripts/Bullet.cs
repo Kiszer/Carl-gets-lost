@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour {
     public float flightSpeed = 5;
     public float spread;
     public float latency;
-    public int upgradeLevel;
+    private int upgradeLevel = 0;
 
     virtual protected void Update()
 	{
@@ -25,7 +25,26 @@ public class Bullet : MonoBehaviour {
     //Bullet Speed
     virtual public void Shoot(float x, float y)
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(x * flightSpeed, y * flightSpeed);
+        GetComponent<Rigidbody2D>().velocity = new Vector2((x + Random.Range(-1, 1) * spread) * flightSpeed, (y + Random.Range(-1, 1) * spread) * flightSpeed);
+        if(upgradeLevel > 1)
+        {
+            for(int i = 1; i < upgradeLevel; i++)
+            {
+                GameObject newBullet = Instantiate(gameObject);
+                newBullet.transform.position = transform.position;
+                newBullet.GetComponent<Bullet>().Shoot(x, y, false);
+            }
+        }
+    }
+
+    public void Shoot(float x, float y, bool originalBullet)
+    {
+        GetComponent<Rigidbody2D>().velocity = new Vector2((x + Random.Range(-1, 1) * spread) * flightSpeed, (y + Random.Range(-1, 1) * spread) * flightSpeed);
+    }
+
+    virtual public void IncreaseUpgradeLevel(int upgradeAmount)
+    {
+        upgradeLevel += upgradeAmount;
     }
 
     //Standard Bullet

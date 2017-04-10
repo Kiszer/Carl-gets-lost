@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
     private Bullet bulletFabScript;
     public Transform bulletSpawnPnt;
 
+    public int bulletUpgradeLevel = 1;
+
     private bool shooting = true;
 
     private int maxHealth = 5;
@@ -46,6 +48,20 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public void IncreaseMaxHealth(int amount)
+    {
+        maxHealth += amount;
+    }
+
+    public void Heal(int amount)
+    {
+        curHealth += amount;
+        if(curHealth > maxHealth)
+        {
+            curHealth = maxHealth;
+        }
+    }
+
     public void TakeDamage(int damage)
     {
         curHealth -= damage;
@@ -63,8 +79,9 @@ public class PlayerController : MonoBehaviour {
     public void Shoot(float x, float y)
     {
         GameObject newBullet = Instantiate(bulletFab);
+        newBullet.GetComponent<Bullet>().IncreaseUpgradeLevel(bulletUpgradeLevel);
         newBullet.transform.position = bulletSpawnPnt.position;
-        newBullet.GetComponent<Bullet>().Shoot(x + Random.Range(-1,1)* bulletFabScript.spread, y + Random.Range(-1, 1) * bulletFabScript.spread);
+        newBullet.GetComponent<Bullet>().Shoot(x, y);
     }
 
     public void Rotate(float x, float y)
