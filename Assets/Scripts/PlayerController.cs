@@ -7,10 +7,9 @@ using UnityStandardAssets.ImageEffects;
 public class PlayerController : MonoBehaviour {
 
     public GameObject bulletFab;
+    private Bullet bulletFabScript;
     public Transform bulletSpawnPnt;
 
-    public float shootSpread;
-    public float shootLatency;
     private bool shooting = true;
 
     private int maxHealth = 5;
@@ -25,6 +24,7 @@ public class PlayerController : MonoBehaviour {
 
     void Start()
     {
+        bulletFabScript = bulletFab.GetComponent<Bullet>();
         StartCoroutine(ConstantShoot());
     }
 
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour {
         while(shooting)
         {
             Shoot(rotationX, rotationY);
-            yield return new WaitForSeconds(shootLatency);
+            yield return new WaitForSeconds(bulletFabScript.latency);
         }
     }
 
@@ -62,11 +62,9 @@ public class PlayerController : MonoBehaviour {
 
     public void Shoot(float x, float y)
     {
-        //Rotate(x, y);
-
         GameObject newBullet = Instantiate(bulletFab);
         newBullet.transform.position = bulletSpawnPnt.position;
-        newBullet.GetComponent<Bullet>().Shoot(x + Random.Range(-1,1)*shootSpread, y + Random.Range(-1, 1) * shootSpread);
+        newBullet.GetComponent<Bullet>().Shoot(x + Random.Range(-1,1)* bulletFabScript.spread, y + Random.Range(-1, 1) * bulletFabScript.spread);
     }
 
     public void Rotate(float x, float y)

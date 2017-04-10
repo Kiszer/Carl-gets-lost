@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    protected float flightSpeed = 5;
+    public float flightSpeed = 5;
+    public float spread;
+    public float latency;
+    public int upgradeLevel;
 
-	protected void Update()
+    virtual protected void Update()
 	{
 		Vector3 cameraPos = Camera.main.WorldToViewportPoint(transform.position);
         if (cameraPos.x < 0.0f || cameraPos.x > 1.0f)

@@ -6,10 +6,17 @@ public class HomingBullet : Bullet {
 
     private GameObject targetEnemy;
 
-	void Update () {
+	protected override void Update()
+    {
+        base.Update();
         if(targetEnemy)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetEnemy.transform.position, flightSpeed/100);
+            //Old method.  Doesn't work as expected
+            //transform.position = Vector2.MoveTowards(transform.position, targetEnemy.transform.position, flightSpeed/100);
+            Quaternion curRotation = transform.rotation;
+            transform.LookAt(targetEnemy.transform);
+            GetComponent<Rigidbody2D>().velocity += (Vector2)transform.forward * (1/flightSpeed);
+            transform.rotation = curRotation;
         }
         else
         {
@@ -19,7 +26,7 @@ public class HomingBullet : Bullet {
 
     public override void Shoot(float x, float y)
     {
-        //
+        base.Shoot(x, y);
     }
 
     private void FindEnemy()
