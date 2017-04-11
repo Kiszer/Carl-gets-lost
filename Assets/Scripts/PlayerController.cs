@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
     private int maxHealth = 5;
     private int curHealth = 5;
 
+    public int getHealth() { return curHealth; }
+
     private float rotationX = 0;
     private float rotationY = 1;
 
@@ -45,6 +47,7 @@ public class PlayerController : MonoBehaviour {
         if(col.gameObject.tag == "NPC")
         {
             TakeDamage(1);
+            Destroy(col.gameObject);
         }
     }
 
