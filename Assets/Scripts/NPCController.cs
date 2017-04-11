@@ -22,6 +22,7 @@ public class NPCController : MonoBehaviour {
 
     void Update()
     {
+        transform.Rotate(0, 0, 1);
         destination = player.transform.position;
         transform.position = Vector2.MoveTowards(transform.position, destination, moveSpeed);
         if ((Vector2)transform.position == destination)

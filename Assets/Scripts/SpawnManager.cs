@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour {
 
-    public GameObject npcPrefab;
+    public GameObject[] npcPrefabs;
     public float difficulty;
     public int spawnMin;
     public int spawnMax;
@@ -19,9 +19,10 @@ public class SpawnManager : MonoBehaviour {
         {
             yield return new WaitForSeconds(1);
             int spawnNum = Random.Range(spawnMin, spawnMax);
+            int spawnChoice = Random.Range(0, npcPrefabs.Length);
             for(int i = 0; i < spawnNum; i++)
             {
-                GameObject newNPC = Instantiate(npcPrefab);
+                GameObject newNPC = Instantiate(npcPrefabs[spawnChoice]);
                 newNPC.transform.position = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             }
         }
