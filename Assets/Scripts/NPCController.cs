@@ -6,12 +6,12 @@ public class NPCController : MonoBehaviour {
 
     public GameObject[] powerUpArr;
 
-    private Vector2 destination;
-    private float powerUpDropChance = .1f;
+    protected Vector2 destination;
+    protected float powerUpDropChance = .1f;
     private float moveSpeed = 0.04f;
-    private GameObject player;
+    protected GameObject player;
     private static readonly int MAX_HEALTH = 70;
-    private int currHealth = MAX_HEALTH;
+    protected int currHealth = MAX_HEALTH;
 
     void Start()
     {
