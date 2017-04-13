@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.ImageEffects;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
+
+    public Image healthBar;
 
     public GameObject bulletFab;
     private Bullet bulletFabScript;
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour {
         {
             curHealth = maxHealth;
         }
+        UpdateHealthBar();
     }
 
     public void TakeDamage(int damage)
@@ -71,7 +75,13 @@ public class PlayerController : MonoBehaviour {
         if(curHealth <= 0)
         {
             Die();
-        }  
+        }
+        UpdateHealthBar();
+    }
+
+    public void UpdateHealthBar()
+    {
+        healthBar.fillAmount = (float)curHealth / (float)maxHealth;
     }
 
     public void Die()
