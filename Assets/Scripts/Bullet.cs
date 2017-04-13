@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour {
     public float spread;
     public float latency;
     private int upgradeLevel = 0;
+    private int damage = 50;
 
     virtual protected void Update()
 	{
@@ -52,7 +53,7 @@ public class Bullet : MonoBehaviour {
     {
         if (collision.gameObject.GetComponent<NPCController>())
         {
-            collision.gameObject.GetComponent<NPCController>().Death();
+            collision.gameObject.GetComponent<NPCController>().GetHit(damage);
             Destroy(gameObject);
         }
     }

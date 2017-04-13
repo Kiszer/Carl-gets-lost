@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class FatEnemy : NPCController {
 
-
-    private static readonly int MAX_HEALTH = 140;
-    private float moveSpeed = 0.02f;
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    
+    void Start()
+    {
+        base.Start();
+        moveSpeed = 0.02f;
+        maxHealth = 100;
+        curHealth = maxHealth;
+    }
 }

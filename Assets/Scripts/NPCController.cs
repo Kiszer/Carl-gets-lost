@@ -8,12 +8,12 @@ public class NPCController : MonoBehaviour {
 
     protected Vector2 destination;
     protected float powerUpDropChance = .1f;
-    private float moveSpeed = 0.04f;
+    protected float moveSpeed = 0.04f;
     protected GameObject player;
-    private static readonly int MAX_HEALTH = 70;
-    protected int currHealth = MAX_HEALTH;
+    protected static int maxHealth = 50;
+    protected int curHealth = maxHealth;
 
-    void Start()
+    protected void Start()
     {
         player = FindObjectOfType<PlayerController>().gameObject;
         destination = new Vector2(12 * (Random.Range(0f, 1f) > 0.5f ? -1 : 1), Random.Range(-6f, 6f));
@@ -31,10 +31,10 @@ public class NPCController : MonoBehaviour {
         }
     }
 
-    void GetHit(int damage)
+    public void GetHit(int damage)
     {
-        currHealth -= damage;
-        if(currHealth <= 0)
+        curHealth -= damage;
+        if(curHealth <= 0)
         {
             Death();
         }
