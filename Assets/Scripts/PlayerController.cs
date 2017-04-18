@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
     private float rotationY = 1;
 
     private float movementScalar = 0.1f;
+    public bool paused;
+    public bool alive = true;
 
     private Vector3 baseScale = new Vector3(0.2f, 0.2f, 0.2f);
 
@@ -34,7 +36,23 @@ public class PlayerController : MonoBehaviour {
         bulletFabScript = bulletFab.GetComponent<Bullet>();
         StartCoroutine(ConstantShoot());
     }
-
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            paused = !paused;
+        }
+        if (paused)
+        {
+            Time.timeScale = 0;
+            movementScalar = 0f;
+        }
+        else if (!paused)
+        {
+            Time.timeScale = 1;
+            movementScalar = 0.04f;
+        }
+    }
     private IEnumerator ConstantShoot()
     {
         while(shooting)
@@ -84,9 +102,17 @@ public class PlayerController : MonoBehaviour {
         healthBar.fillAmount = (float)curHealth / (float)maxHealth;
     }
 
+    void gameOver()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     public void Die()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        alive = false;
+        Time.timeScale = 0;
+        movementScalar = 0f;
+        gameOver();
     }
 
     public void Shoot(float x, float y)

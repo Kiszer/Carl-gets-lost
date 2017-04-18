@@ -12,12 +12,17 @@ public class NPCController : MonoBehaviour {
     protected GameObject player;
     protected static int maxHealth = 50;
     protected int curHealth = maxHealth;
+    public bool paused;
+
+    public GameObject currentPlayer;
 
     protected void Start()
     {
         player = FindObjectOfType<PlayerController>().gameObject;
+        
         destination = new Vector2(12 * (Random.Range(0f, 1f) > 0.5f ? -1 : 1), Random.Range(-6f, 6f));
         transform.position = new Vector2(-destination.x, Random.Range(-6, 6f));
+        paused = false;
     }
 
     void Update()
@@ -28,6 +33,20 @@ public class NPCController : MonoBehaviour {
         if ((Vector2)transform.position == destination)
         {
             Death();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            paused = !paused;
+        }
+        if (paused)
+        {
+            Time.timeScale = 0;
+            moveSpeed = 0f;
+        }
+        else if (!paused)
+        {
+            Time.timeScale = 1;
+            moveSpeed = 0.04f;
         }
     }
 
@@ -51,4 +70,9 @@ public class NPCController : MonoBehaviour {
         }
         Destroy(gameObject);
     }
+
+   
+
 }
+
+
