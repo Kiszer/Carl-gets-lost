@@ -60,6 +60,11 @@ public class NPCController : MonoBehaviour {
         moveSpeed += .001f;
     }
 
+    public void GetHit(int damage, Color color)
+    {
+
+    }
+
     public void Death()
     {
         if(Random.Range(0f,1f) < powerUpDropChance)
