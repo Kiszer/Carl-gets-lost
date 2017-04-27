@@ -13,9 +13,15 @@ public class HomingBullet : Bullet {
         {
             //Old method.  Doesn't work as expected
             //transform.position = Vector2.MoveTowards(transform.position, targetEnemy.transform.position, flightSpeed/100);
-            Quaternion curRotation = transform.rotation;
+            /*Quaternion curRotation = transform.rotation;
             transform.LookAt(targetEnemy.transform);
             GetComponent<Rigidbody2D>().velocity += (Vector2)transform.forward * (1/flightSpeed);
+            transform.rotation = curRotation;*/
+            Quaternion curRotation = transform.rotation;
+            transform.LookAt(targetEnemy.transform.position);
+            Vector3 velocity = GetComponent<Rigidbody2D>().velocity.normalized * GetComponent<Rigidbody2D>().velocity.magnitude * 0.99f;
+            Vector3 look = transform.forward.normalized * GetComponent<Rigidbody2D>().velocity.magnitude * 0.01f;
+            GetComponent<Rigidbody2D>().velocity = velocity + look;
             transform.rotation = curRotation;
         }
         else
@@ -26,7 +32,7 @@ public class HomingBullet : Bullet {
 
     public override void Shoot(float x, float y)
     {
-        base.Shoot(x, y);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(x*flightSpeed, y*flightSpeed);
     }
 
     private void FindEnemy()

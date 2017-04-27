@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
     private int maxHealth = 5;
     private int curHealth = 5;
 
-    public int getHealth() { return curHealth; }
+    public int GetHealth() { return curHealth; }
 
     private float rotationX = 0;
     private float rotationY = 1;
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
         else if (!paused)
         {
             Time.timeScale = 1;
-            movementScalar = 0.04f;
+            movementScalar = 0.1f;
         }
     }
     private IEnumerator ConstantShoot()
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour {
         healthBar.fillAmount = (float)curHealth / (float)maxHealth;
     }
 
-    void gameOver()
+    void GameOver()
     {
         SceneManager.LoadScene(2);
     }
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour {
         alive = false;
         Time.timeScale = 0;
         movementScalar = 0f;
-        gameOver();
+        GameOver();
     }
 
     public void Shoot(float x, float y)

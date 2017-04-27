@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pause : MonoBehaviour
+public class Pauser : MonoBehaviour
 {
-
-
     public bool paused;
 
 
@@ -34,13 +32,8 @@ public class pause : MonoBehaviour
     public bool playerDead()
     {
         if (!GameObject.Find("Player").GetComponent<PlayerController>().alive)
-        {
             return true;
-        }
         else
             return false;
-
-
     }
-
 }

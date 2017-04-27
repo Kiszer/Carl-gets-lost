@@ -13,37 +13,29 @@ public class InputManager : MonoBehaviour {
 
 	void Update ()
     {
-		if(Input.GetKey(KeyCode.W))
+		if(Input.GetAxis("Vertical") != 0)
         {
-            playerController.MovePlayer(0, 1);
+            playerController.MovePlayer(0, Input.GetAxis("Vertical"));
         }
-        if(Input.GetKey(KeyCode.A))
+        if (Input.GetAxis("Horizontal") != 0)
         {
-            playerController.MovePlayer(-1, 0);
+            playerController.MovePlayer(Input.GetAxis("Horizontal"), 0);
         }
-        if(Input.GetKey(KeyCode.S))
-        {
-            playerController.MovePlayer(0, -1);
-        }
-        if(Input.GetKey(KeyCode.D))
-        {
-            playerController.MovePlayer(1, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetAxis("LookVertical") > 0)
         {
             playerController.Rotate(0, 1);
         }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            playerController.Rotate(-1, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetAxis("LookVertical") < 0)
         {
             playerController.Rotate(0, -1);
         }
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetAxis("LookHorizontal") > 0)
         {
             playerController.Rotate(1, 0);
+        }
+        if (Input.GetAxis("LookHorizontal") < 0)
+        {
+            playerController.Rotate(-1, 0);
         }
     }
 }
