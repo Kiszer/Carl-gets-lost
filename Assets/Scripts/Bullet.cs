@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    public float flightSpeed = 5;
-    public float spread;
-    public float latency;
-    private int upgradeLevel = 0;
-    private int damage = 50;
+    protected float flightSpeed = 5;
+    protected float spread = .2f;
+    protected float latency = .2f;
+    public float GetLatency() { return latency; }
+    protected int upgradeLevel = 0;
+    protected int damage = 50;
 
     virtual protected void Update()
 	{
@@ -23,7 +24,6 @@ public class Bullet : MonoBehaviour {
         }
 	}
 	
-    //Bullet Speed
     virtual public void Shoot(float x, float y)
     {
         GetComponent<Rigidbody2D>().velocity = new Vector2((x + Random.Range(-1, 1) * spread) * flightSpeed, (y + Random.Range(-1, 1) * spread) * flightSpeed);

@@ -58,7 +58,8 @@ public class PlayerController : MonoBehaviour {
         while(shooting)
         {
             Shoot(rotationX, rotationY);
-            yield return new WaitForSeconds(bulletFabScript.latency);
+            print(bulletFabScript.GetLatency());
+            yield return new WaitForSeconds(bulletFabScript.GetLatency());
         }
     }
 
