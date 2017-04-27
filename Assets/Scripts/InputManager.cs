@@ -37,5 +37,21 @@ public class InputManager : MonoBehaviour {
         {
             playerController.Rotate(-1, 0);
         }
+        if(Input.GetButtonDown("RedColor"))
+        {
+            playerController.shootColor = Color.red;
+        }
+        if (Input.GetButtonDown("BlueColor"))
+        {
+            playerController.shootColor = Color.blue;
+        }
+        if (Input.GetButtonDown("GreenColor"))
+        {
+            playerController.shootColor = Color.green;
+        }
+        if (Input.GetButtonDown("YellowColor"))
+        {
+            playerController.shootColor = Color.yellow;
+        }
     }
 }

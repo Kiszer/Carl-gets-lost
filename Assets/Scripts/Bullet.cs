@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour {
     public float latency;
     private int upgradeLevel = 0;
     private int damage = 50;
+    public Color curColor;
 
     virtual protected void Update()
 	{
@@ -53,8 +54,14 @@ public class Bullet : MonoBehaviour {
     {
         if (collision.gameObject.GetComponent<NPCController>())
         {
-            collision.gameObject.GetComponent<NPCController>().GetHit(damage);
+            //collision.gameObject.GetComponent<NPCController>().GetHit(damage);
+            collision.gameObject.GetComponent<NPCController>().GetHit(damage, curColor);
             Destroy(gameObject);
         }
+    }
+    public void SetColor(Color newColor)
+    {
+        curColor = newColor;
+        GetComponent<SpriteRenderer>().color = newColor;
     }
 }

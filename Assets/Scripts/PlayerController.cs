@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour {
     public bool paused;
     public bool alive = true;
 
+    public Color shootColor = Color.red;
+
     private Vector3 baseScale = new Vector3(0.2f, 0.2f, 0.2f);
 
     void Start()
@@ -121,6 +123,7 @@ public class PlayerController : MonoBehaviour {
         newBullet.GetComponent<Bullet>().IncreaseUpgradeLevel(bulletUpgradeLevel);
         newBullet.transform.position = bulletSpawnPnt.position;
         newBullet.GetComponent<Bullet>().Shoot(x, y);
+        newBullet.GetComponent<Bullet>().SetColor(shootColor);
     }
 
     public void Rotate(float x, float y)

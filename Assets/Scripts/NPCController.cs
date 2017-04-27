@@ -13,6 +13,8 @@ public class NPCController : MonoBehaviour {
     protected static int maxHealth = 50;
     protected int curHealth = maxHealth;
     public bool paused;
+    public Color curColor;
+    private Color[] possibleColors = { Color.red, Color.blue, Color.yellow, Color.green };
 
     public GameObject currentPlayer;
 
@@ -23,6 +25,11 @@ public class NPCController : MonoBehaviour {
         destination = new Vector2(12 * (Random.Range(0f, 1f) > 0.5f ? -1 : 1), Random.Range(-6f, 6f));
         transform.position = new Vector2(-destination.x, Random.Range(-6, 6f));
         paused = false;
+        curColor = possibleColors[Random.Range(0, possibleColors.Length)];
+        if(GetComponent<SpriteRenderer>())
+        {
+            GetComponent<SpriteRenderer>().color = curColor;
+        }
     }
 
     void Update()
@@ -62,7 +69,16 @@ public class NPCController : MonoBehaviour {
 
     public void GetHit(int damage, Color color)
     {
-
+        if (color != curColor)
+        {
+            damage = damage / 2;
+        }
+        curHealth -= damage;
+        if(curHealth <= 0)
+        {
+            Death();
+        }
+        moveSpeed += .001f;
     }
 
     public void Death()
