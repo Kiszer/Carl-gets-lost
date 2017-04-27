@@ -11,7 +11,7 @@ public class NPCRed : NPCController {
 	
 	void GetHit(int damage, Color color)
     {
-        if(color != Color.blue)
+        if(color != Color.red)
         {
             damage = damage / 2;
         }

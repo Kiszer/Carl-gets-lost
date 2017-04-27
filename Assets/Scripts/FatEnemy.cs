@@ -11,5 +11,6 @@ public class FatEnemy : NPCController {
         moveSpeed = 0.02f;
         maxHealth = 100;
         curHealth = maxHealth;
+        curColor = Color.blue;
     }
 }
