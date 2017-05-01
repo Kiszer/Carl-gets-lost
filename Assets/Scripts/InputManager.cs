@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour {
         playerController = FindObjectOfType<PlayerController>();
     }
 
-	void Update ()
+	void FixedUpdate ()
     {
 		if(Input.GetAxis("Vertical") != 0)
         {

@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
     private float rotationY = 1;
 
     private float movementScalar = 0.1f;
-    public bool paused;
+    public bool paused = false;
     public bool alive = true;
 
     public Color shootColor = Color.red;
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
         bulletFabScript = bulletFab.GetComponent<Bullet>();
         StartCoroutine(ConstantShoot());
     }
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -60,8 +60,7 @@ public class PlayerController : MonoBehaviour {
         while(shooting)
         {
             Shoot(rotationX, rotationY);
-            print(bulletFabScript.GetLatency());
-            yield return new WaitForSeconds(bulletFabScript.GetLatency());
+            yield return new WaitForSeconds(bulletFabScript.GetLatency(bulletUpgradeLevel));
         }
     }
 
@@ -123,8 +122,8 @@ public class PlayerController : MonoBehaviour {
         GameObject newBullet = Instantiate(bulletFab);
         newBullet.GetComponent<Bullet>().IncreaseUpgradeLevel(bulletUpgradeLevel);
         newBullet.transform.position = bulletSpawnPnt.position;
-        newBullet.GetComponent<Bullet>().Shoot(x, y);
         newBullet.GetComponent<Bullet>().SetColor(shootColor);
+        newBullet.GetComponent<Bullet>().Shoot(x, y);
     }
 
     public void Rotate(float x, float y)

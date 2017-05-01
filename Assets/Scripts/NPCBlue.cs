@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class NPCBlue : NPCController
 {
-    private Color curColor;
-    private Color[] possibleColors = { Color.red, Color.blue, Color.yellow, Color.green };
+    //private Color curColor;
+    //private Color[] possibleColors = { Color.red, Color.blue, Color.yellow, Color.green };
 
     // Use this for initialization
     void Start()
     {
         base.Start();
-        curColor = possibleColors[Random.Range(0, possibleColors.Length)];
+        //curColor = possibleColors[Random.Range(0, possibleColors.Length)];
         GetComponent<SpriteRenderer>().color = curColor;
     }
 

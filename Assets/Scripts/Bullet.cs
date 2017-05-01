@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    public float flightSpeed = 5;
-    public float spread;
-    public float latency;
-    private int upgradeLevel = 0;
-    private int damage = 50;
+    protected float flightSpeed = 5;
+    protected float spread = 0.2f;
+    protected float latency = 0.2f;
+    protected int upgradeLevel = 0;
+    protected int damage = 50;
     public Color curColor;
+    protected int upgradeMax = 15;
 
-    virtual protected void Update()
+    virtual protected void FixedUpdate()
 	{
 		Vector3 cameraPos = Camera.main.WorldToViewportPoint(transform.position);
         if (cameraPos.x < 0.0f || cameraPos.x > 1.0f)
@@ -23,8 +24,7 @@ public class Bullet : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
-	
-    //Bullet Speed
+
     virtual public void Shoot(float x, float y)
     {
         GetComponent<Rigidbody2D>().velocity = new Vector2((x + Random.Range(-1, 1) * spread) * flightSpeed, (y + Random.Range(-1, 1) * spread) * flightSpeed);
@@ -34,6 +34,7 @@ public class Bullet : MonoBehaviour {
             {
                 GameObject newBullet = Instantiate(gameObject);
                 newBullet.transform.position = transform.position;
+                newBullet.GetComponent<Bullet>().SetColor(curColor);
                 newBullet.GetComponent<Bullet>().Shoot(x, y, false);
             }
         }
@@ -46,6 +47,10 @@ public class Bullet : MonoBehaviour {
 
     virtual public void IncreaseUpgradeLevel(int upgradeAmount)
     {
+        if (upgradeAmount > upgradeMax)
+        {
+            upgradeAmount = upgradeMax;
+        }
         upgradeLevel += upgradeAmount;
     }
 
@@ -54,7 +59,6 @@ public class Bullet : MonoBehaviour {
     {
         if (collision.gameObject.GetComponent<NPCController>())
         {
-            //collision.gameObject.GetComponent<NPCController>().GetHit(damage);
             collision.gameObject.GetComponent<NPCController>().GetHit(damage, curColor);
             Destroy(gameObject);
         }
@@ -63,5 +67,10 @@ public class Bullet : MonoBehaviour {
     {
         curColor = newColor;
         GetComponent<SpriteRenderer>().color = newColor;
+    }
+
+    virtual public float GetLatency(int upgradeAmount)
+    {
+        return latency;
     }
 }

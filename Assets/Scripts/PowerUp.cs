@@ -7,11 +7,31 @@ public class PowerUp : MonoBehaviour {
     public GameObject bulletFab;
     public int healthRestoration = 0;
     public int healthUpgrade = 0;
+    protected float waitTimer = 6;
+    protected float flashTimer = 5;
 
-    void Update()
+    void Start()
+    {
+        StartCoroutine(DestructTimer());
+    }
+
+    void FixedUpdate()
     {
         //Spin
         transform.Rotate(0, 0, 1f);
+    }
+
+    IEnumerator DestructTimer()
+    {
+        yield return new WaitForSeconds(flashTimer);
+        float timer = waitTimer - flashTimer;
+        while(timer > 0)
+        {
+            timer -= 0.1f;
+            GetComponent<SpriteRenderer>().enabled = !GetComponent<SpriteRenderer>().enabled;
+            yield return new WaitForSeconds(0.1f);
+        }
+        Destroy(gameObject);
     }
 
     public void OnTriggerEnter2D(Collider2D col)
@@ -28,6 +48,7 @@ public class PowerUp : MonoBehaviour {
                 }
                 else
                 {
+                    playerController.bulletUpgradeLevel = 1;
                     playerController.bulletFab = bulletFab;
                 }
             }

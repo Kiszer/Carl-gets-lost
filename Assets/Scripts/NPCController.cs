@@ -5,7 +5,6 @@ using UnityEngine;
 public class NPCController : MonoBehaviour {
 
     public GameObject[] powerUpArr;
-
     protected Vector2 destination;
     protected float powerUpDropChance = .1f;
     protected float moveSpeed = 0.04f;
@@ -14,18 +13,24 @@ public class NPCController : MonoBehaviour {
     protected int curHealth = maxHealth;
     public bool paused;
     public Color curColor;
-    private Color[] possibleColors = { Color.red, Color.blue, Color.yellow, Color.green };
+    private Color[] possibleColors = { Color.green, Color.red, Color.yellow, Color.blue };
+
+    private SpawnManager spawnManager;
 
     public GameObject currentPlayer;
 
     protected void Start()
     {
-        player = FindObjectOfType<PlayerController>().gameObject;
-        
+        try
+        {
+            player = FindObjectOfType<PlayerController>().gameObject;
+        }catch { }
+        spawnManager = FindObjectOfType<SpawnManager>();
+
         destination = new Vector2(12 * (Random.Range(0f, 1f) > 0.5f ? -1 : 1), Random.Range(-6f, 6f));
         transform.position = new Vector2(-destination.x, Random.Range(-6, 6f));
         paused = false;
-        curColor = possibleColors[Random.Range(0, possibleColors.Length)];
+        curColor = possibleColors[Random.Range(0, spawnManager.difficulty)];
         if(GetComponent<SpriteRenderer>())
         {
             GetComponent<SpriteRenderer>().color = curColor;
@@ -35,7 +40,7 @@ public class NPCController : MonoBehaviour {
     void Update()
     {
         transform.Rotate(0, 0, 1);
-        destination = player.transform.position;
+        //destination = player.transform.position;
         transform.position = Vector2.MoveTowards(transform.position, destination, moveSpeed);
         if ((Vector2)transform.position == destination)
         {
@@ -91,9 +96,6 @@ public class NPCController : MonoBehaviour {
         }
         Destroy(gameObject);
     }
-
-   
-
 }
 
 
