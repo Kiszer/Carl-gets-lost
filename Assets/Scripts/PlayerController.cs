@@ -114,7 +114,15 @@ public class PlayerController : MonoBehaviour {
         alive = false;
         Time.timeScale = 0;
         movementScalar = 0f;
-        GameOver();
+        if(FindObjectsOfType<PlayerController>().Length > 1)
+        {
+            FindObjectOfType<InputManager>().RemovePlayer(this);
+            Destroy(gameObject);
+        }
+        else
+        {
+            GameOver();
+        }
     }
 
     public void Shoot(float x, float y)
