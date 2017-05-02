@@ -7,10 +7,12 @@ public class HomingBullet : Bullet {
     private GameObject targetEnemy;
     private float turnDeltaUpgrade = .002f;
     private float turnDelta = .01f;
+    private float findEnemyLatency = 0.5f;
     
     protected void Start()
     {
         latency = 0.2f;
+        StartCoroutine(ConstantFindEnemy());
     }
 
 	protected override void FixedUpdate()
@@ -20,7 +22,6 @@ public class HomingBullet : Bullet {
         {
             return;
         }
-        FindEnemy();
         if(targetEnemy)
         {
             Quaternion curRotation = transform.rotation;
@@ -33,7 +34,17 @@ public class HomingBullet : Bullet {
             Vector3 look = transform.up.normalized * flightSpeed * turnDelta * upgradeLevel;
             GetComponent<Rigidbody2D>().velocity = velocity + look;
         }
+        else
+        {
+            FindEnemy();
+        }
 	}
+
+    IEnumerator ConstantFindEnemy()
+    {
+        yield return new WaitForSeconds(findEnemyLatency);
+        FindEnemy();
+    }
 
     public override void Shoot(float x, float y)
     {

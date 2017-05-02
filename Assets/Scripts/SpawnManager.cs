@@ -10,14 +10,15 @@ public class SpawnManager : MonoBehaviour {
     public int spawnMin;
     public int spawnMax;
     private float playTime = 0;
+    private Color[] colors = { Color.green, Color.red, Color.blue, Color.yellow };
 
 	void Start () {
         StartCoroutine(Spawn());
 	}
 
-    void Update()
+    void FixedUpdate()
     {
-        playTime += Time.deltaTime;
+        playTime += Time.fixedDeltaTime;
     }
 
     IEnumerator Spawn()
@@ -27,10 +28,15 @@ public class SpawnManager : MonoBehaviour {
             yield return new WaitForSeconds(1);
             int spawnNum = Random.Range(spawnMin, spawnMax + difficulty*(int)(playTime/15));
             int spawnChoice = Random.Range(0, npcPrefabs.Length);
-            for(int i = 0; i < spawnNum; i++)
+            float spawnX = Random.Range(0f, 1f) > 0.5f ? -1 : 1;
+            Color randColor = colors[Random.Range(0, difficulty)];
+            for (int i = 0; i < spawnNum; i++)
             {
                 GameObject newNPC = Instantiate(npcPrefabs[spawnChoice]);
-                newNPC.transform.position = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+                NPCController npcScript = newNPC.GetComponent<NPCController>();
+                npcScript.SetColor(randColor);
+                npcScript.Destination = new Vector2(12 * (spawnX), Random.Range(-6f, 6f));
+                newNPC.transform.position = new Vector2(-npcScript.Destination.x, Random.Range(-6, 6f));
             }
         }
     }

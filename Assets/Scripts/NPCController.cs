@@ -6,6 +6,7 @@ public class NPCController : MonoBehaviour {
 
     public GameObject[] powerUpArr;
     protected Vector2 destination;
+    public Vector2 Destination { get { return destination; } set { destination = value; } }
     protected float powerUpDropChance = .1f;
     protected float moveSpeed = 0.04f;
     protected GameObject player;
@@ -27,19 +28,13 @@ public class NPCController : MonoBehaviour {
         }catch { }
         spawnManager = FindObjectOfType<SpawnManager>();
 
-        destination = new Vector2(12 * (Random.Range(0f, 1f) > 0.5f ? -1 : 1), Random.Range(-6f, 6f));
-        transform.position = new Vector2(-destination.x, Random.Range(-6, 6f));
         paused = false;
-        curColor = possibleColors[Random.Range(0, spawnManager.difficulty)];
-        if(GetComponent<SpriteRenderer>())
-        {
-            GetComponent<SpriteRenderer>().color = curColor;
-        }
     }
 
     void Update()
     {
         transform.Rotate(0, 0, 1);
+        /**Turn this on to enable following the player*/
         //destination = player.transform.position;
         transform.position = Vector2.MoveTowards(transform.position, destination, moveSpeed);
         if ((Vector2)transform.position == destination)
@@ -59,6 +54,15 @@ public class NPCController : MonoBehaviour {
         {
             Time.timeScale = 1;
             moveSpeed = 0.04f;
+        }
+    }
+
+    public void SetColor(Color value)
+    {
+        curColor = value;
+        if (GetComponent<SpriteRenderer>())
+        {
+            GetComponent<SpriteRenderer>().color = curColor;
         }
     }
 

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DifficultySetter : MonoBehaviour {
 
     public int difficulty = 1;
+    public int playerNum = 1;
 
 	void Start()
     {
@@ -19,6 +20,10 @@ public class DifficultySetter : MonoBehaviour {
             if (FindObjectOfType<SpawnManager>())
             {
                 FindObjectOfType<SpawnManager>().difficulty = difficulty;
+                if(FindObjectOfType<InputManager>() && playerNum > 1)
+                {
+                    FindObjectOfType<InputManager>().SetNewPlayers(playerNum);
+                }
                 Destroy(gameObject);
             }
         }
@@ -27,5 +32,10 @@ public class DifficultySetter : MonoBehaviour {
     public void SetDifficulty(int value)
     {
         difficulty = value;
+    }
+
+    public void SetPlayerNum(int value)
+    {
+        playerNum = value;
     }
 }
