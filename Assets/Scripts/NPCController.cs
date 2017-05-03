@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPCController : MonoBehaviour {
 
@@ -20,8 +21,12 @@ public class NPCController : MonoBehaviour {
 
     public GameObject currentPlayer;
 
+
+    
+
     protected void Start()
     {
+        
         try
         {
             player = FindObjectOfType<PlayerController>().gameObject;
@@ -99,7 +104,11 @@ public class NPCController : MonoBehaviour {
             newPowerUp.transform.position = transform.position;
         }
         Destroy(gameObject);
+        PlayerController.score++;
+        
     }
+
+    
 }
 
 

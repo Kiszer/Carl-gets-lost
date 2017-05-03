@@ -33,13 +33,20 @@ public class PlayerController : MonoBehaviour {
 
     private Vector3 baseScale = new Vector3(0.2f, 0.2f, 0.2f);
 
+
+    public static int score = 0;
+    public Text scoreText;
+
     void Start()
     {
+        score = 0;
         bulletFabScript = bulletFab.GetComponent<Bullet>();
         StartCoroutine(ConstantShoot());
+        
     }
     void FixedUpdate()
     {
+        scoreText.text = "Score: " + score.ToString();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             paused = !paused;
@@ -106,6 +113,7 @@ public class PlayerController : MonoBehaviour {
 
     void GameOver()
     {
+        updateHighScore();
         SceneManager.LoadScene(2);
     }
 
@@ -178,5 +186,33 @@ public class PlayerController : MonoBehaviour {
             resetY = true;
         }
         transform.position = new Vector2(resetX ? origPos.x : newPos.x, resetY ? origPos.y : newPos.y);
+    }
+
+    public void updateHighScore()
+    {
+        int tempScore = score;
+        int temp;
+        if(score > PlayerPrefs.GetInt("highscore1"))
+        {
+            temp = PlayerPrefs.GetInt("highscore1");
+            tempScore = PlayerPrefs.GetInt("highscore2");
+            PlayerPrefs.SetInt("highscore1", score);
+            PlayerPrefs.SetInt("highscore2", temp);
+            PlayerPrefs.SetInt("highscore3", tempScore);
+            
+        }
+        if(score > PlayerPrefs.GetInt("highscore2") && score < PlayerPrefs.GetInt("highscore1"))
+        {
+            tempScore = PlayerPrefs.GetInt("highscore2");
+            PlayerPrefs.SetInt("highscore2", score);
+            PlayerPrefs.SetInt("highscore3", tempScore);
+        }
+        if(score > PlayerPrefs.GetInt("highscore3") && score < PlayerPrefs.GetInt("highscore2"))
+        {
+            PlayerPrefs.SetInt("highscore3", score);
+        }
+        
+      
+
     }
 }
