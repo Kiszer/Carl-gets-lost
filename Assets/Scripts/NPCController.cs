@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class NPCController : MonoBehaviour {
 
+    public int scoreValue;
     public GameObject[] powerUpArr;
     protected Vector2 destination;
     public Vector2 Destination { get { return destination; } set { destination = value; } }
@@ -18,11 +19,6 @@ public class NPCController : MonoBehaviour {
     private Color[] possibleColors = { Color.green, Color.red, Color.yellow, Color.blue };
 
     private SpawnManager spawnManager;
-
-    public GameObject currentPlayer;
-
-
-    
 
     protected void Start()
     {
@@ -103,12 +99,9 @@ public class NPCController : MonoBehaviour {
             GameObject newPowerUp = Instantiate(powerUpArr[chosenPowerup]);
             newPowerUp.transform.position = transform.position;
         }
+        PlayerController.score += scoreValue * SpawnManager.difficulty;
         Destroy(gameObject);
-        PlayerController.score++;
-        
     }
-
-    
 }
 
 

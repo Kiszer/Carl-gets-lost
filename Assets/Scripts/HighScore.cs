@@ -15,11 +15,13 @@ public class HighScore : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        highScore1.text = PlayerPrefs.GetInt("highscore1").ToString();
-        highScore2.text = PlayerPrefs.GetInt("highscore2").ToString();
-        highScore3.text = PlayerPrefs.GetInt("highscore3").ToString();
-
+        try
+        {
+            highScore1.text = PlayerPrefs.GetInt("highscore1").ToString();
+            highScore2.text = PlayerPrefs.GetInt("highscore2").ToString();
+            highScore3.text = PlayerPrefs.GetInt("highscore3").ToString();
+        }
+        catch { }
     }
     
     

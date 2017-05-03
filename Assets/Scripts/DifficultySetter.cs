@@ -19,7 +19,7 @@ public class DifficultySetter : MonoBehaviour {
         {
             if (FindObjectOfType<SpawnManager>())
             {
-                FindObjectOfType<SpawnManager>().difficulty = difficulty;
+                SpawnManager.difficulty = difficulty;
                 if(FindObjectOfType<InputManager>() && playerNum > 1)
                 {
                     FindObjectOfType<InputManager>().SetNewPlayers(playerNum);

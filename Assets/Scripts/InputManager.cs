@@ -157,17 +157,17 @@ public class InputManager : MonoBehaviour {
     {
         if (numPlayers > 1)
         {
-            if(Input.GetJoystickNames()[1] != "")
+            GameObject player2 = Instantiate(playerFab, Vector2.zero + Vector2.right * 2, Quaternion.identity);
+            if (Input.GetJoystickNames().Length > 1)
             {
-                pad1Controller = keyboardController;
-                GameObject player2 = Instantiate(playerFab, Vector2.zero + Vector2.right * 2, Quaternion.identity);
-                pad2Controller = player2.GetComponent<PlayerController>();
+                if (Input.GetJoystickNames()[1] != "")
+                {
+                    pad1Controller = keyboardController;
+                    pad2Controller = player2.GetComponent<PlayerController>();
+                    return;
+                }
             }
-            else
-            {
-                GameObject player2 = Instantiate(playerFab, Vector2.zero + Vector2.right * 2, Quaternion.identity);
-                pad1Controller = player2.GetComponent<PlayerController>();
-            }
+            pad1Controller = player2.GetComponent<PlayerController>();
         }
     }
 

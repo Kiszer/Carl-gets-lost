@@ -40,6 +40,10 @@ public class PlayerController : MonoBehaviour {
     void Start()
     {
         score = 0;
+        if(scoreText == null)
+        {
+            scoreText = GameObject.Find("Score Text").GetComponent<Text>();
+        }
         bulletFabScript = bulletFab.GetComponent<Bullet>();
         StartCoroutine(ConstantShoot());
         

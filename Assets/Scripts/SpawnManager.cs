@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour {
 
     public GameObject[] npcPrefabs;
     public bool difficultyTimer = true;
-    public int difficulty;
+    public static int difficulty;
     public int spawnMin;
     public int spawnMax;
     private float playTime = 0;
@@ -27,7 +27,7 @@ public class SpawnManager : MonoBehaviour {
         {
             yield return new WaitForSeconds(1);
             int spawnNum = Random.Range(spawnMin, spawnMax + difficulty*(int)(playTime/15));
-            int spawnChoice = Random.Range(0, npcPrefabs.Length);
+            int spawnChoice = Random.Range(0, 100) >= 20 ? 0 : Random.Range(0,npcPrefabs.Length);
             float spawnX = Random.Range(0f, 1f) > 0.5f ? -1 : 1;
             Color randColor = colors[Random.Range(0, difficulty)];
             for (int i = 0; i < spawnNum; i++)
