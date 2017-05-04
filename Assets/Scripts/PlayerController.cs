@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
     public bool paused = false;
     public bool alive = true;
 
+
     public Color shootColor = Color.red;
 
     private Vector3 baseScale = new Vector3(0.2f, 0.2f, 0.2f);
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 
     public static int score = 0;
     public Text scoreText;
+    public string diff;
 
     void Start()
     {
@@ -196,27 +198,51 @@ public class PlayerController : MonoBehaviour {
     {
         int tempScore = score;
         int temp;
-        if(score > PlayerPrefs.GetInt("highscore1"))
+        if (SpawnManager.difficulty == 1)
         {
-            temp = PlayerPrefs.GetInt("highscore1");
-            tempScore = PlayerPrefs.GetInt("highscore2");
-            PlayerPrefs.SetInt("highscore1", score);
-            PlayerPrefs.SetInt("highscore2", temp);
-            PlayerPrefs.SetInt("highscore3", tempScore);
-            
+            diff = "easy";
         }
-        if(score > PlayerPrefs.GetInt("highscore2") && score < PlayerPrefs.GetInt("highscore1"))
+        if (SpawnManager.difficulty == 2)
         {
-            tempScore = PlayerPrefs.GetInt("highscore2");
-            PlayerPrefs.SetInt("highscore2", score);
-            PlayerPrefs.SetInt("highscore3", tempScore);
+            diff = "medium";
         }
-        if(score > PlayerPrefs.GetInt("highscore3") && score < PlayerPrefs.GetInt("highscore2"))
+        if (SpawnManager.difficulty == 4)
         {
-            PlayerPrefs.SetInt("highscore3", score);
+            diff = "hard";
         }
-        
-      
+        for(int i=1; i<6;i++)
+        {
+            if(tempScore > PlayerPrefs.GetInt(("highscore" + diff + i.ToString())))
+            {
+                temp = PlayerPrefs.GetInt("highscore" + diff + i.ToString());
+                PlayerPrefs.SetInt("highscore" + diff + i.ToString(), tempScore);
+                tempScore = temp;
+            }
+        }
+
+
+
+        /*  if(score > PlayerPrefs.GetInt("highscore1"))
+          {
+              temp = PlayerPrefs.GetInt("highscore1");
+              tempScore = PlayerPrefs.GetInt("highscore2");
+              PlayerPrefs.SetInt("highscore1", score);
+              PlayerPrefs.SetInt("highscore2", temp);
+              PlayerPrefs.SetInt("highscore3", tempScore);
+
+          }
+          if(score > PlayerPrefs.GetInt("highscore2") && score < PlayerPrefs.GetInt("highscore1"))
+          {
+              tempScore = PlayerPrefs.GetInt("highscore2");
+              PlayerPrefs.SetInt("highscore2", score);
+              PlayerPrefs.SetInt("highscore3", tempScore);
+          }
+          if(score > PlayerPrefs.GetInt("highscore3") && score < PlayerPrefs.GetInt("highscore2"))
+          {
+              PlayerPrefs.SetInt("highscore3", score);
+          }*/
+
+
 
     }
 }
