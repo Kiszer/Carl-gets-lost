@@ -14,7 +14,6 @@ public class SpawnManager : MonoBehaviour {
 
 	void Start () {
         StartCoroutine(Spawn());
-        DontDestroyOnLoad(gameObject);
     }
 
     void FixedUpdate()
