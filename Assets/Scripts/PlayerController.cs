@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 
     public static int score = 0;
     public Text scoreText;
+    public Text upgradeText;
     public string diff;
 
     void Start()
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate()
     {
         scoreText.text = "Score: " + score.ToString();
+        upgradeText.text = bulletUpgradeLevel.ToString();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             paused = !paused;

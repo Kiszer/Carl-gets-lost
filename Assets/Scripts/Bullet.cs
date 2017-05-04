@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour {
     protected int upgradeLevel = 0;
     protected int damage = 50;
     public Color curColor;
-    protected int upgradeMax = 15;
+    public int upgradeMax = 10;
 
     virtual protected void FixedUpdate()
 	{
